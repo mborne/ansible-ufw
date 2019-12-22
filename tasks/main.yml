@@ -14,6 +14,7 @@
 - name: Reset ufw
   ufw:
     state: reset
+  when: ufw_reset|bool
   notify:
     - ufw-restart
 
@@ -23,7 +24,6 @@
     policy: "{{ ufw_default_incoming_policy }}"
   notify:
     - ufw-restart
-
 
 - name: Configure ufw default outgoing policy
   ufw:
@@ -64,9 +64,6 @@
 - name: Enable ufw
   ufw:
     state: enabled
-
-- name: Restart ufw
-  command: /bin/true
   notify: ufw-restart
 
 

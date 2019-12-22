@@ -1,4 +1,7 @@
 ---
+# reset all rules
+ufw_reset: no
+
 # "full", "high", "low", "medium", "off", "on"
 ufw_logging: "on"
 
