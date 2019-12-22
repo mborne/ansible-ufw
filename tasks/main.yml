@@ -1,0 +1,72 @@
+---
+
+#-------------------------------------------------------------------------------
+# Configure UTW firewall
+#
+# see https://github.com/weareinteractive/ansible-ufw/blob/master/tasks/config.yml
+#-------------------------------------------------------------------------------
+- name: Install ufw
+  apt:
+    package: ufw
+    state: present
+    update_cache: yes
+
+- name: Reset ufw
+  ufw:
+    state: reset
+  notify:
+    - ufw-restart
+
+- name: Configure ufw default incoming policy
+  ufw:
+    direction: incoming
+    policy: "{{ ufw_default_incoming_policy }}"
+  notify:
+    - ufw-restart
+
+
+- name: Configure ufw default outgoing policy
+  ufw:
+    direction: outgoing
+    policy: "{{ ufw_default_outgoing_policy }}"
+  notify:
+    - ufw-restart
+
+- name: Configure ufw rules
+  ufw:
+    delete: "{{ item.delete | default(omit) }}"
+    direction: "{{ item.direction | default(omit) }}"
+    from_ip: "{{ item.from_ip | default(omit) }}"
+    from_port: "{{ item.from_port | default(omit) }}"
+    insert: "{{ item.insert | default(omit) }}"
+    interface: "{{ item.interface | default(omit) }}"
+    log: "{{ item.log | default(omit) }}"
+    logging: "{{ item.logging | default(omit) }}"
+    name: "{{ item.name | default(omit) }}"
+    policy: "{{ item.policy | default(omit) }}"
+    port: "{{ item.port | default(omit) }}"
+    proto: "{{ item.proto | default(omit) }}"
+    rule: "{{ item.rule | default('allow') }}"
+    state: "{{ item.state | default(omit) }}"
+    to_ip: "{{ item.to_ip | default(omit) }}"
+    to_port: "{{ item.to_port | default(omit) }}"
+  loop: "{{ ufw_rules }}"
+  when: ufw_rules|length|bool
+  notify:
+    - ufw-restart
+
+- name: Enable ufw logging
+  ufw:
+    logging: "{{ ufw_logging }}"
+  notify:
+    - ufw-restart
+
+- name: Enable ufw
+  ufw:
+    state: enabled
+
+- name: Restart ufw
+  command: /bin/true
+  notify: ufw-restart
+
+

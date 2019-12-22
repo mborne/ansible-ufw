@@ -1,0 +1,12 @@
+---
+# "full", "high", "low", "medium", "off", "on"
+ufw_logging: "on"
+
+# "allow", "deny", "reject"
+ufw_default_incoming_policy: allow
+# "allow", "deny", "reject"
+ufw_default_outgoing_policy: allow
+
+ufw_rules: []
+
+
