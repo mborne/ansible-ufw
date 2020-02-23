@@ -51,7 +51,6 @@
     to_ip: "{{ item.to_ip | default(omit) }}"
     to_port: "{{ item.to_port | default(omit) }}"
   loop: "{{ ufw_rules }}"
-  when: ufw_rules|length|bool
   notify:
     - ufw-restart
 
