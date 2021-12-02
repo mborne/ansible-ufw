@@ -1,8 +1,7 @@
 mborne.ufw
 =========
 
-Configure UFW default policies and rules
-
+Configure UFW default policies and rules.
 
 Role Variables
 --------------
@@ -27,7 +26,13 @@ Sample playbook
     - mborne.ufw
 ```
 
+Credits
+-------
+
+Widely inspired by an old version of [weareinteractive/ansible-ufw](https://github.com/weareinteractive/ansible-ufw).
+
 License
 -------
 
 MIT
+

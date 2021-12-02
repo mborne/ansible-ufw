@@ -1,10 +1,5 @@
 ---
 
-#-------------------------------------------------------------------------------
-# Configure UTW firewall
-#
-# see https://github.com/weareinteractive/ansible-ufw/blob/master/tasks/config.yml
-#-------------------------------------------------------------------------------
 - name: Install ufw
   apt:
     package: ufw
